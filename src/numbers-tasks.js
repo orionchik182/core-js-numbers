@@ -137,13 +137,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-  if (value >= 0 && value < 10) {
-    return value;
-  }
-  const toStr = value.toString();
-  const toMas = [...toStr];
-  const lastNumb = Number.parseInt(toMas[toMas.length - 1], 10);
-  return lastNumb;
+  return value % 10;
 }
 
 /**
@@ -347,8 +341,8 @@ function getSumOfDigits(num) {
  *   15  => false
  */
 function isPowerOfTwo(num) {
-  const result = num % 2 === 0;
-  return result;
+  const pow = Math.log2(num);
+  return 2 ** Math.round(pow) === num;
 }
 
 /**
@@ -436,7 +430,7 @@ function toPrecision(number, precision) {
  * Number(-5)    => -5
  */
 function getNumberValue(number) {
-  return Number.parseInt(number, 10);
+  return number.valueOf();
 }
 
 /**
@@ -455,14 +449,7 @@ function getNumberValue(number) {
  * '5'      => false
  */
 function isNumber(number) {
-  if (
-    typeof number !== 'number' ||
-    number === Infinity ||
-    Number.isNaN(number)
-  ) {
-    return false;
-  }
-  return true;
+  return Number.isFinite(number);
 }
 
 /**
@@ -582,10 +569,7 @@ function roundToNearestInteger(number) {
  * -5.5 => -5
  */
 function getIntegerPartNumber(number) {
-  if (number > 0) {
-    return Math.floor(number);
-  }
-  return Math.ceil(number);
+  return Math.trunc(number);
 }
 
 /**
@@ -650,8 +634,7 @@ function getRandomInteger(min, max) {
  * 3, 4 => 5
  */
 function getHypotenuse(a, b) {
-  const result = Math.sqrt(a ** 2 + b ** 2);
-  return result;
+  return Math.hypot(a, b);
 }
 
 /**
@@ -669,7 +652,7 @@ function getHypotenuse(a, b) {
  */
 function getCountOfOddNumbers(number) {
   let sum = 0;
-  for (let i = 1; i <= number; i += 1) {
+  for (let i = 1; i <= Math.abs(number); i += 1) {
     if (i % 2 !== 0) {
       sum += 1;
     }
